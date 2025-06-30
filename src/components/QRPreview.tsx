@@ -18,19 +18,24 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
   const containerRef = useRef<HTMLDivElement>(null);
   const qrRef = useRef<any>(null);
   const logoUrlRef = useRef<string>('');
+  const prevLogoRef = useRef<File | undefined>(options.logo);
 
   useEffect(() => {
     const generateQRCode = async () => {
       try {
-        // Clean up previous logo URL if it exists
-        if (logoUrlRef.current) {
+        // Check if logo has changed
+        const logoChanged = prevLogoRef.current !== options.logo;
+        prevLogoRef.current = options.logo;
+
+        // Clean up previous logo URL if logo has changed
+        if (logoChanged && logoUrlRef.current) {
           URL.revokeObjectURL(logoUrlRef.current);
           logoUrlRef.current = '';
         }
 
-        // Create new logo URL if logo exists
-        let logoUrl = '';
-        if (options.logo) {
+        // Create new logo URL if logo exists and has changed
+        let logoUrl = logoUrlRef.current;
+        if (options.logo && logoChanged) {
           logoUrl = URL.createObjectURL(options.logo);
           logoUrlRef.current = logoUrl;
         }

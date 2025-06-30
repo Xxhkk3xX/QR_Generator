@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ar } from '../locales/ar';
 
@@ -21,6 +21,14 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   });
   const [logo, setLogo] = useState<File | null>(null);
 
+  // Trigger update whenever any form data or logo changes
+  useEffect(() => {
+    onUpdate({
+      ...formData,
+      logo: logo || undefined,
+    });
+  }, [formData, logo, onUpdate]);
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.png', '.jpg', '.jpeg']
@@ -29,18 +37,15 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     onDrop: (acceptedFiles) => {
       if (acceptedFiles[0]) {
         setLogo(acceptedFiles[0]);
-        handleUpdate({ logo: acceptedFiles[0] });
       }
     },
   });
 
-  const handleUpdate = (update: Partial<typeof formData & { logo?: File }>) => {
-    const newData = { ...formData, ...update };
-    setFormData(newData);
-    onUpdate({
-      ...newData,
-      logo: update.logo || logo || undefined,
-    });
+  const handleUpdate = (update: Partial<typeof formData>) => {
+    setFormData(prev => ({
+      ...prev,
+      ...update,
+    }));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -139,7 +144,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
-                  handleUpdate({ logo: undefined });
                 }}
               >
                 {ar.logo.remove}
