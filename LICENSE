@@ -1,21 +1,23 @@
-MIT License
+PROPRIETARY SOFTWARE LICENSE
 
-Copyright (c) 2024 QR Code Generator
+Copyright (c) ${new Date().getFullYear()} QR Generator
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+All Rights Reserved
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This software and its associated documentation (the "Software") are proprietary and confidential to QR Generator. The Software contains trade secrets and confidential information.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. 
+NO LICENSE IS GRANTED. The Software may not be used, copied, reproduced, translated, broadcast, modified, licensed, transmitted, distributed, exhibited, performed, published, or displayed in any form or by any means without the prior written permission of QR Generator.
+
+Unauthorized copying of this software, via any medium, is strictly prohibited.
+
+RESTRICTED RIGHTS:
+If this Software is acquired by or on behalf of any part of a government entity, this provision applies. This Software: (i) was developed at private expense, is existing computer software and no part of it was developed with government funds; (ii) is proprietary to QR Generator; (iii) is a trade secret of QR Generator for all purposes of the Freedom of Information Act; (iv) is commercial computer software subject to limited utilization restrictions as provided in any agreement between the Vendor and the Government entity; (v) in all respects is proprietary data belonging solely to QR Generator; and (vi) is unpublished and all rights are reserved under the copyright laws of the United States.
+
+CONFIDENTIALITY:
+The Software contains confidential and proprietary information of QR Generator. You agree to take adequate steps to protect the Software from unauthorized disclosure or use.
+
+NO WARRANTY:
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. QR GENERATOR DISCLAIMS ALL WARRANTIES, EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+LIMITATION OF LIABILITY:
+IN NO EVENT SHALL QR GENERATOR BE LIABLE FOR ANY DAMAGES WHATSOEVER ARISING OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE. 

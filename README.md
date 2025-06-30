@@ -2,6 +2,10 @@
 
 A beautiful, mobile-first QR code generator built with React and TypeScript. Create fully customizable QR codes with your brand colors and logo.
 
+⚠️ **PRIVATE REPOSITORY - NOT FOR PUBLIC USE**
+
+This repository contains proprietary code and sensitive API keys. It is not licensed for public use, modification, or distribution. All rights reserved.
+
 ## Features
 
 - 📱 Mobile-first, responsive design
@@ -58,6 +62,12 @@ The build output will be in the `dist` directory.
 - react-dropzone for file uploads
 - Lemon Squeezy for payments
 
-## License
+## Security Notice
 
-MIT License - see LICENSE file for details
+This repository contains sensitive API keys and payment integration code. Any unauthorized use, copying, modification, or distribution of this code is strictly prohibited and may result in legal action.
+
+## Copyright
+
+© ${new Date().getFullYear()} QR Generator. All rights reserved.
+
+This software is proprietary and confidential. No part of this software may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of the copyright holder.
