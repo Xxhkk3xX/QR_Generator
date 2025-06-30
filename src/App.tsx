@@ -68,7 +68,6 @@ function App() {
         </div>
 
         <footer className="mt-8 sm:mt-16 text-center text-body text-sm sm:text-base">
-          {/* Removed copyright text from the footer */}
         </footer>
       </div>
     </div>

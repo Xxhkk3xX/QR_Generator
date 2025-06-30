@@ -7,12 +7,11 @@ interface BuyButtonProps {
 
 export const BuyButton: React.FC<BuyButtonProps> = ({ productId, className = '' }) => {
   return (
-    <a
-      href={`https://yourstore.lemonsqueezy.com/buy/${productId}`}
-      className={`lemonsqueezy-button ${className}`}
-      data-payment-methods="card,apple-pay,google-pay"
+    <button
+      onClick={() => window.location.href = `https://yourstore.lemonsqueezy.com/buy/${productId}`}
+      className={`w-full bg-black text-white font-semibold py-4 px-6 rounded-lg hover:bg-gray-800 transition-colors ${className}`}
     >
       اشترِ الآن وتحميل مباشر
-    </a>
+    </button>
   );
 }; 
