@@ -18,24 +18,27 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
   const containerRef = useRef<HTMLDivElement>(null);
   const qrRef = useRef<any>(null);
   const logoUrlRef = useRef<string>('');
-  const prevLogoRef = useRef<File | undefined>(options.logo);
 
   useEffect(() => {
     const generateQRCode = async () => {
       try {
-        // Check if logo has changed
-        const logoChanged = prevLogoRef.current !== options.logo;
-        prevLogoRef.current = options.logo;
+        // Clean up previous QR instance
+        if (qrRef.current) {
+          qrRef.current = null;
+          if (containerRef.current) {
+            containerRef.current.innerHTML = '';
+          }
+        }
 
-        // Clean up previous logo URL if logo has changed
-        if (logoChanged && logoUrlRef.current) {
+        // Clean up previous logo URL
+        if (logoUrlRef.current) {
           URL.revokeObjectURL(logoUrlRef.current);
           logoUrlRef.current = '';
         }
 
-        // Create new logo URL if logo exists and has changed
-        let logoUrl = logoUrlRef.current;
-        if (options.logo && logoChanged) {
+        // Create new logo URL if logo exists
+        let logoUrl = '';
+        if (options.logo) {
           logoUrl = URL.createObjectURL(options.logo);
           logoUrlRef.current = logoUrl;
         }
@@ -56,46 +59,10 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
           }),
         };
 
-        if (!qrRef.current) {
-          qrRef.current = generateQR(qrOptions);
-          if (containerRef.current) {
-            containerRef.current.innerHTML = '';
-            await qrRef.current.append(containerRef.current);
-          }
-        } else {
-          // Update existing QR code
-          const updateConfig = {
-            data: options.text || 'https://kwtech.it.com',
-            dotsOptions: {
-              color: options.foregroundColor,
-              type: 'square',
-            },
-            backgroundOptions: {
-              color: options.backgroundColor,
-            },
-            cornersSquareOptions: {
-              color: options.foregroundColor,
-              type: 'square',
-            },
-            cornersDotOptions: {
-              color: options.foregroundColor,
-              type: options.cornerStyle,
-            },
-          };
-
-          if (logoUrl) {
-            Object.assign(updateConfig, {
-              image: logoUrl,
-              imageOptions: {
-                hideBackgroundDots: true,
-                imageSize: 0.25,
-                margin: 0,
-                crossOrigin: 'anonymous',
-              },
-            });
-          }
-
-          await qrRef.current.update(updateConfig);
+        // Create new QR instance
+        qrRef.current = generateQR(qrOptions);
+        if (containerRef.current) {
+          await qrRef.current.append(containerRef.current);
         }
       } catch (error) {
         console.error('Error generating QR code:', error);
@@ -108,6 +75,10 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
     return () => {
       if (logoUrlRef.current) {
         URL.revokeObjectURL(logoUrlRef.current);
+      }
+      if (qrRef.current && containerRef.current) {
+        containerRef.current.innerHTML = '';
+        qrRef.current = null;
       }
     };
   }, [options]);
