@@ -45,22 +45,24 @@ export const createCheckout = async (): Promise<string> => {
         data: {
           type: 'checkouts',
           attributes: {
-            product_id: LEMON_SQUEEZY_CONFIG.PRODUCT_ID,
-            checkout_data: {
-              custom: {
-                user_id: 'anonymous'
-              },
-              checkout_options: {
-                embed: true,
-                media: false,
-                button_color: '#000000',
-                dark: false,
-                paymentMethods: ['card', 'apple_pay', 'google_pay'],
-                displayMode: 'inline',
-                collectBillingAddress: false,
-                collectShippingAddress: false,
-                enabledPaymentMethods: ['card', 'apple_pay', 'google_pay']
-              }
+            store_id: 51369,
+            variant_id: 148858,
+            custom_price: 2.5,
+            product_options: {
+              enabled_variants: [],
+              redirect_url: "https://kwtech.it.com/success",
+              receipt_button_text: "تحميل",
+              receipt_link_url: "https://kwtech.it.com/download",
+              receipt_thank_you_note: "شكراً لك على الشراء!"
+            },
+            checkout_options: {
+              dark: false,
+              media: false,
+              buttons: true,
+              quantity: false,
+              discount: false,
+              testimonials: false,
+              custom_button_text: "اشترِ الآن - ٢.٥ د.ك"
             }
           }
         }
@@ -68,6 +70,8 @@ export const createCheckout = async (): Promise<string> => {
     });
 
     if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Checkout error details:', errorData);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
