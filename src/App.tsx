@@ -21,8 +21,8 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-6 sm:py-12 px-3 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="max-w-4xl mx-auto py-6 sm:py-12 px-3 sm:px-6 lg:px-8">
         <header className="text-center mb-8 sm:mb-12">
           <h1 className="heading-1 mb-3 sm:mb-4 text-3xl sm:text-4xl">
             {ar.title}
@@ -67,6 +67,7 @@ function App() {
         </div>
 
         <footer className="mt-8 sm:mt-16 text-center text-body text-sm sm:text-base">
+          <p>© {new Date().getFullYear()} QR Generator. All rights reserved.</p>
         </footer>
       </div>
     </div>
