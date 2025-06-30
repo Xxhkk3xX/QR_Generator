@@ -128,18 +128,19 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       </div>
 
       <div>
-        <label className="heading-2 block mb-2 text-base sm:text-lg">
+        <label htmlFor="logo-upload" className="heading-2 block mb-2 text-base sm:text-lg">
           {ar.logo.title}
         </label>
         <div
           {...getRootProps()}
           className="border-2 border-dashed border-gray-200 rounded-xl p-6 sm:p-8 text-center cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
         >
-          <input {...getInputProps()} />
+          <input {...getInputProps()} id="logo-upload" />
           {logo ? (
             <div className="text-body text-sm sm:text-base">
               {logo.name}
               <button
+                type="button"
                 className="mr-3 text-red-500 hover:text-red-700 font-medium"
                 onClick={(e) => {
                   e.stopPropagation();
