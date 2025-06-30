@@ -56,7 +56,7 @@ function App() {
               <QRPreview options={qrOptions} />
             </div>
             <div className="mt-8">
-              <BuyButton productId="your-product-id" className="w-full" />
+              <BuyButton className="w-full" />
             </div>
           </div>
 
