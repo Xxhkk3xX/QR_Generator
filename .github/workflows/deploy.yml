@@ -26,10 +26,14 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
         
       - name: Build
+        env:
+          VITE_LEMON_SQUEEZY_API_KEY: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY }}
+          VITE_LEMON_SQUEEZY_STORE_ID: ${{ secrets.VITE_LEMON_SQUEEZY_STORE_ID }}
+          VITE_LEMON_SQUEEZY_VARIANT_ID: ${{ secrets.VITE_LEMON_SQUEEZY_VARIANT_ID }}
         run: npm run build
         
       - name: Setup Pages
