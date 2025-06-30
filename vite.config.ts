@@ -13,26 +13,27 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    base: '/QR_Generator/',
+    base: './',
     server: {
       headers: {
         'Content-Security-Policy': `
-          default-src 'self';
-          script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.lemonsqueezy.com;
-          style-src 'self' 'unsafe-inline';
+          default-src 'self' https://*.lemonsqueezy.com;
+          script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.lemonsqueezy.com;
+          style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
           img-src 'self' data: blob: https:;
-          connect-src 'self' https://api.lemonsqueezy.com;
-          frame-src 'self' https://checkout.lemonsqueezy.com;
+          connect-src 'self' https://*.lemonsqueezy.com;
+          frame-src 'self' https://*.lemonsqueezy.com;
         `.replace(/\s+/g, ' ').trim()
       }
     },
     build: {
+      sourcemap: true,
       cssCodeSplit: false,
       assetsInlineLimit: 0,
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {
-            if (assetInfo.name === 'index.css') return 'assets/index.[hash].css';
+            if (assetInfo.name === 'index.css') return 'assets/style.[hash].css';
             return 'assets/[name].[hash][extname]';
           },
           chunkFileNames: 'assets/[name].[hash].js',
