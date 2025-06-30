@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { ar } from '../locales/ar';
 
 interface QRFormProps {
   onUpdate: (data: {
@@ -14,7 +15,7 @@ interface QRFormProps {
 export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   const [formData, setFormData] = useState({
     text: '',
-    foregroundColor: '#000000',
+    foregroundColor: '#007A3D', // Kuwait flag green
     backgroundColor: '#ffffff',
     cornerStyle: 'square' as const,
   });
@@ -50,8 +51,8 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   return (
     <div className="space-y-8 p-6">
       <div>
-        <label htmlFor="text" className="heading-2 block mb-2">
-          QR Code Content
+        <label htmlFor="text" className="heading-2 block mb-2 text-kuwait-green">
+          {ar.qrContent}
         </label>
         <input
           type="text"
@@ -60,14 +61,14 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
           className="input"
           value={formData.text}
           onChange={handleInputChange}
-          placeholder="Enter URL or text"
+          placeholder={ar.urlPlaceholder}
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="foregroundColor" className="heading-2 block mb-2">
-            Foreground Color
+          <label htmlFor="foregroundColor" className="heading-2 block mb-2 text-kuwait-green">
+            {ar.foregroundColor}
           </label>
           <div className="flex items-center space-x-4">
             <input
@@ -83,8 +84,8 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
         </div>
 
         <div>
-          <label htmlFor="backgroundColor" className="heading-2 block mb-2">
-            Background Color
+          <label htmlFor="backgroundColor" className="heading-2 block mb-2 text-kuwait-green">
+            {ar.backgroundColor}
           </label>
           <div className="flex items-center space-x-4">
             <input
@@ -101,8 +102,8 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       </div>
 
       <div>
-        <label htmlFor="cornerStyle" className="heading-2 block mb-2">
-          Corner Style
+        <label htmlFor="cornerStyle" className="heading-2 block mb-2 text-kuwait-green">
+          {ar.cornerStyle}
         </label>
         <select
           id="cornerStyle"
@@ -111,41 +112,41 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
           value={formData.cornerStyle}
           onChange={handleInputChange}
         >
-          <option value="square">Square</option>
-          <option value="dot">Dot</option>
+          <option value="square">{ar.cornerStyles.square}</option>
+          <option value="dot">{ar.cornerStyles.dot}</option>
         </select>
       </div>
 
       <div>
-        <label className="heading-2 block mb-2">
-          Logo (optional)
+        <label className="heading-2 block mb-2 text-kuwait-green">
+          {ar.logo.title}
         </label>
         <div
           {...getRootProps()}
-          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-gray-300 transition-colors bg-gray-50"
+          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-kuwait-green transition-colors bg-gray-50"
         >
           <input {...getInputProps()} />
           {logo ? (
             <div className="text-body">
               {logo.name}
               <button
-                className="ml-3 text-red-500 hover:text-red-700 font-medium"
+                className="mr-3 text-kuwait-red hover:text-kuwait-red/80 font-medium"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
                   handleUpdate({ logo: undefined });
                 }}
               >
-                Remove
+                {ar.logo.remove}
               </button>
             </div>
           ) : (
             <div>
               <p className="text-body mb-2">
-                Drag & drop a logo here, or click to select
+                {ar.logo.dropzone}
               </p>
               <p className="text-sm text-gray-500">
-                Supports PNG, JPG up to 2MB
+                {ar.logo.supportedFormats}
               </p>
             </div>
           )}

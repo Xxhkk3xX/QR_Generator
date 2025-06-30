@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Noto Sans Arabic', 'sans-serif'],
+      },
       colors: {
         gray: {
           50: '#F9FAFB',
@@ -19,6 +22,9 @@ export default {
           800: '#1F2937',
           900: '#111827',
         },
+        'kuwait-blue': '#00A3E0',
+        'kuwait-red': '#CE1126',
+        'kuwait-green': '#007A3D',
       },
       borderRadius: {
         'xl': '1rem',

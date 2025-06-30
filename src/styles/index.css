@@ -2,9 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+:root {
+  --kuwait-green: #007A3D;
+  --kuwait-red: #CE1126;
+  --kuwait-blue: #00A3E0;
+}
+
 body {
   background-color: #F9FAFB;
   color: #111827;
+  font-family: 'Noto Sans Arabic', sans-serif;
 }
 
 .btn {
@@ -21,12 +28,12 @@ body {
 }
 
 .btn-primary {
-  background-color: #000000;
+  background-color: var(--kuwait-green);
   color: #FFFFFF;
 }
 
 .btn-primary:hover {
-  background-color: #1F2937;
+  background-color: #006A33;
 }
 
 .input {
@@ -41,7 +48,7 @@ body {
 .input:focus {
   outline: none;
   border-color: transparent;
-  box-shadow: 0 0 0 2px #000000;
+  box-shadow: 0 0 0 2px var(--kuwait-green);
 }
 
 .card {
@@ -56,6 +63,16 @@ body {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* RTL Support */
+[dir="rtl"] .input {
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 antialiased;
@@ -64,11 +81,11 @@ body {
 
 @layer components {
   .heading-1 {
-    @apply text-4xl font-bold text-gray-900 tracking-tight;
+    @apply text-4xl font-bold text-kuwait-green tracking-tight;
   }
 
   .heading-2 {
-    @apply text-2xl font-semibold text-gray-800;
+    @apply text-2xl font-semibold text-kuwait-green;
   }
 
   .text-body {

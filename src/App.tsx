@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { QRForm } from './components/QRForm'
 import { QRPreview } from './components/QRPreview'
 import { BuyButton } from './components/BuyButton'
+import { ar } from './locales/ar'
 import './styles/index.css'
 
 interface QROptions {
@@ -15,24 +16,24 @@ interface QROptions {
 function App() {
   const [qrOptions, setQROptions] = useState<QROptions>({
     text: '',
-    foregroundColor: '#000000',
+    foregroundColor: '#007A3D', // Kuwait flag green
     backgroundColor: '#ffffff',
     cornerStyle: 'square',
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-16">
-          <h1 className="heading-1 mb-4">
-            QR Code Generator
+          <h1 className="heading-1 mb-4 text-kuwait-green">
+            {ar.title}
           </h1>
           <p className="text-body text-lg max-w-2xl mx-auto">
-            Create beautiful, customized QR codes with your brand colors and logo in seconds
+            {ar.subtitle}
           </p>
           <BuyButton
             productId="YOUR_PRODUCT_ID"
-            className="btn btn-primary mt-8 inline-block"
+            className="btn btn-primary mt-8 inline-block bg-kuwait-green hover:bg-kuwait-green/90"
           />
         </header>
 
@@ -47,19 +48,19 @@ function App() {
             </div>
             <BuyButton
               productId="YOUR_PRODUCT_ID"
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full bg-kuwait-green hover:bg-kuwait-green/90"
             />
           </div>
         </div>
 
         <footer className="mt-16 text-center text-body">
           <p>
-            Secure payments powered by{' '}
+            {ar.footer.secure}{' '}
             <a
               href="https://www.lemonsqueezy.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black font-medium hover:underline"
+              className="text-kuwait-green font-medium hover:underline"
             >
               Lemon Squeezy
             </a>
