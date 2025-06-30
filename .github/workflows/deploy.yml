@@ -34,7 +34,11 @@ jobs:
           VITE_LEMON_SQUEEZY_API_KEY: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY }}
           VITE_LEMON_SQUEEZY_STORE_ID: ${{ secrets.VITE_LEMON_SQUEEZY_STORE_ID }}
           VITE_LEMON_SQUEEZY_VARIANT_ID: ${{ secrets.VITE_LEMON_SQUEEZY_VARIANT_ID }}
-        run: npm run build
+        run: |
+          echo "Building with store ID: $VITE_LEMON_SQUEEZY_STORE_ID"
+          echo "Building with variant ID: $VITE_LEMON_SQUEEZY_VARIANT_ID"
+          echo "API key is set: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY != '' }}"
+          npm run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -35,27 +35,30 @@ export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
 
 export const createCheckout = async (): Promise<string> => {
   try {
+    const storeId = LEMON_SQUEEZY_CONFIG.STORE_ID;
+    const variantId = LEMON_SQUEEZY_CONFIG.VARIANT_ID;
+
     const payload = {
       data: {
         type: 'checkouts',
         attributes: {
-          store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
-          variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
+          store_id: parseInt(storeId),
+          variant_id: parseInt(variantId),
           product_options: {
-            enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)]
+            enabled_variants: [parseInt(variantId)]
           }
         },
         relationships: {
           store: {
             data: {
               type: "stores",
-              id: LEMON_SQUEEZY_CONFIG.STORE_ID
+              id: storeId
             }
           },
           variant: {
             data: {
               type: "variants",
-              id: LEMON_SQUEEZY_CONFIG.VARIANT_ID
+              id: variantId
             }
           }
         }
