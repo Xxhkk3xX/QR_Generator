@@ -22,8 +22,11 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
   useEffect(() => {
     const generateQRCode = async () => {
       try {
+        console.log('Starting QR code generation with options:', options);
+        
         // Clean up previous QR instance
         if (qrRef.current) {
+          console.log('Cleaning up previous QR instance');
           qrRef.current = null;
           if (containerRef.current) {
             containerRef.current.innerHTML = '';
@@ -32,6 +35,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
 
         // Clean up previous logo URL
         if (logoUrlRef.current) {
+          console.log('Cleaning up previous logo URL');
           URL.revokeObjectURL(logoUrlRef.current);
           logoUrlRef.current = '';
         }
@@ -39,6 +43,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         // Create new logo URL if logo exists
         let logoUrl = '';
         if (options.logo) {
+          console.log('Creating new logo URL for file:', options.logo.name);
           logoUrl = URL.createObjectURL(options.logo);
           logoUrlRef.current = logoUrl;
         }
@@ -54,18 +59,22 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
           ...(logoUrl && {
             logo: {
               url: logoUrl,
-              size: 0.25,
             },
           }),
         };
 
+        console.log('Generating QR with options:', qrOptions);
+
         // Create new QR instance
         qrRef.current = generateQR(qrOptions);
+        
         if (containerRef.current) {
+          console.log('Appending QR code to container');
           await qrRef.current.append(containerRef.current);
+          console.log('QR code appended successfully');
         }
       } catch (error) {
-        console.error('Error generating QR code:', error);
+        console.error('Error in QR code generation:', error);
       }
     };
 
@@ -73,6 +82,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
 
     // Cleanup function
     return () => {
+      console.log('Running cleanup function');
       if (logoUrlRef.current) {
         URL.revokeObjectURL(logoUrlRef.current);
       }
