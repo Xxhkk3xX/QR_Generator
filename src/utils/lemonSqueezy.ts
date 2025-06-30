@@ -35,48 +35,57 @@ export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
 
 export const createCheckout = async (): Promise<string> => {
   try {
+    const payload = {
+      data: {
+        type: 'checkouts',
+        attributes: {
+          store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
+          variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
+          product_options: {
+            redirect_url: window.location.origin + "/success",
+            receipt_button_text: "تحميل",
+            receipt_link_url: window.location.origin + "/download",
+            receipt_thank_you_note: "شكراً لك على الشراء!"
+          },
+          checkout_options: {
+            dark: false,
+            media: false,
+            buttons: true,
+            quantity: false,
+            discount: false,
+            testimonials: false,
+            custom_button_text: "اشترِ الآن - ٢.٥ د.ك"
+          }
+        }
+      }
+    };
+
+    console.log('Sending checkout payload:', payload);
+
     const response = await fetch(`${LEMON_SQUEEZY_CONFIG.BASE_URL}/checkouts`, {
       method: 'POST',
       headers: {
         ...LEMON_SQUEEZY_CONFIG.HEADERS,
         'Authorization': `Bearer ${LEMON_SQUEEZY_CONFIG.API_KEY}`
       },
-      body: JSON.stringify({
-        data: {
-          type: 'checkouts',
-          attributes: {
-            store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
-            variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
-            custom_price: 2.5,
-            product_options: {
-              enabled_variants: [],
-              redirect_url: window.location.origin + "/success",
-              receipt_button_text: "تحميل",
-              receipt_link_url: window.location.origin + "/download",
-              receipt_thank_you_note: "شكراً لك على الشراء!"
-            },
-            checkout_options: {
-              dark: false,
-              media: false,
-              buttons: true,
-              quantity: false,
-              discount: false,
-              testimonials: false,
-              custom_button_text: "اشترِ الآن - ٢.٥ د.ك"
-            }
-          }
-        }
-      })
+      body: JSON.stringify(payload)
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Checkout error details:', errorData);
+      console.error('Checkout error details:', responseData);
+      if (responseData.errors) {
+        const errorMessages = responseData.errors.map((error: any) => 
+          `${error.title}: ${error.detail}`
+        ).join(', ');
+        throw new Error(`Checkout failed: ${errorMessages}`);
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = await response.json();
-    return data.data.attributes.url;
+    console.log('Checkout response:', responseData);
+    return responseData.data.attributes.url;
   } catch (error) {
     console.error('Error creating checkout:', error);
     throw error;
