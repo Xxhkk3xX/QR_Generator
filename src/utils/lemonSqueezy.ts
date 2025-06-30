@@ -41,24 +41,9 @@ export const createCheckout = async (): Promise<string> => {
         attributes: {
           store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
           variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
-          customer_email: "test@example.com",
-          customer_name: "Test User",
-          billing_address: {
-            country: "KW"
-          },
-          checkout_options: {
-            dark: false,
-            media: false,
-            buttons: true,
-            quantity: false,
-            discount: false,
-            testimonials: false,
-            button_text: "اشترِ الآن - ٢.٥ د.ك"
-          },
-          redirect_url: window.location.origin + "/success",
-          receipt_link_url: window.location.origin + "/download",
-          receipt_button_text: "تحميل",
-          receipt_thank_you_note: "شكراً لك على الشراء!"
+          product_options: {
+            enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)]
+          }
         }
       }
     };
