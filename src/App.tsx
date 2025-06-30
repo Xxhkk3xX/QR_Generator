@@ -56,7 +56,9 @@ function App() {
             <div className="card p-4 sm:p-6">
               <QRPreview options={qrOptions} />
             </div>
-            <BuyButton />
+            <div className="mt-8">
+              <BuyButton productId="your-product-id" className="w-full" />
+            </div>
           </div>
 
           {/* Form Section */}
@@ -66,7 +68,7 @@ function App() {
         </div>
 
         <footer className="mt-8 sm:mt-16 text-center text-body text-sm sm:text-base">
-          <p>© 2024 Kuwait QR Code Generator</p>
+          {/* Removed copyright text from the footer */}
         </footer>
       </div>
     </div>
