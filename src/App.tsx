@@ -22,26 +22,28 @@ function App() {
 
   return (
     <div className="container">
-      <header className="text-center my-8">
-        <h1 className="text-4xl font-bold mb-4">{ar.title}</h1>
-        <p className="text-gray-600 text-lg">{ar.subtitle}</p>
+      <header className="text-center mb-8">
+        <h1 className="mb-4">{ar.title}</h1>
+        <p className="text-secondary">{ar.subtitle}</p>
       </header>
 
       <div className="card mb-8" dir="rtl">
-        <h2 className="text-2xl font-bold mb-4">{ar.instructions.title}</h2>
+        <h2 className="text-primary text-2xl font-bold mb-4">
+          {ar.instructions.title}
+        </h2>
         <ol className="space-y-4">
           {ar.instructions.steps.map((step, index) => (
-            <li key={index} className="flex gap-3">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white flex items-center justify-center">
+            <li key={index} className="flex gap-3 items-start">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#2563eb] text-white flex items-center justify-center text-small">
                 {index + 1}
               </span>
-              <span className="text-gray-700">{step}</span>
+              <span className="text-secondary flex-1">{step}</span>
             </li>
           ))}
         </ol>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2">
         <div>
           <div className="card">
             <QRPreview options={qrOptions} />
@@ -56,8 +58,10 @@ function App() {
         </div>
       </div>
 
-      <footer className="text-center text-gray-600 text-sm mt-8">
-        © {new Date().getFullYear()} QR Generator
+      <footer className="text-center mt-8">
+        <p className="text-secondary text-small">
+          © {new Date().getFullYear()} QR Generator
+        </p>
       </footer>
     </div>
   )

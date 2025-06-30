@@ -5,14 +5,17 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles - keeping only what's essential */
+/* Base styles */
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f9fafb;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-/* RTL Support - essential for Arabic */
+/* RTL Support */
 [dir="rtl"] {
   font-family: 'Noto Sans Arabic', sans-serif;
 }
@@ -20,15 +23,126 @@ body {
 /* Simple utility classes */
 .card {
   background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .container {
+  width: 100%;
   max-width: 64rem;
   margin: 0 auto;
   padding: 1rem;
+}
+
+/* Typography */
+h1 {
+  color: #0f172a;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  .container {
+    padding: 1.5rem;
+  }
+}
+
+/* Form elements */
+input[type="text"],
+input[type="color"] {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  width: 100%;
+  background: white;
+  color: #1e293b;
+}
+
+input[type="color"] {
+  height: 3rem;
+  padding: 0.25rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Buttons */
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Lists */
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Text colors */
+.text-primary {
+  color: #0f172a;
+}
+
+.text-secondary {
+  color: #475569;
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+/* Spacing utilities */
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Component styles */
