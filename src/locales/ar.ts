@@ -26,7 +26,7 @@ export const ar = {
     remove: 'إزالة',
   },
   preview: 'معاينة',
-  buyButton: 'شراء وتحميل',
+  buyButton: 'تواصل معنا عبر واتساب',
   poweredBy: 'مدعوم من',
   footer: {
     secure: 'مدفوعات آمنة بواسطة'

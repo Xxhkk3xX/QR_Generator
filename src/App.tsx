@@ -56,10 +56,7 @@ function App() {
             <div className="card p-4 sm:p-6">
               <QRPreview options={qrOptions} />
             </div>
-            <BuyButton
-              productId="YOUR_PRODUCT_ID"
-              className="btn btn-primary w-full"
-            />
+            <BuyButton />
           </div>
 
           {/* Form Section */}
