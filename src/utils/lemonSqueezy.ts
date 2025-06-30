@@ -47,8 +47,10 @@ export const createCheckout = async (): Promise<string> => {
       throw new Error('Store ID or Variant ID is not configured');
     }
 
+    // Parse IDs and clean API key
     const storeId = parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID);
     const variantId = parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID);
+    const apiKey = LEMON_SQUEEZY_CONFIG.API_KEY.replace(/^["']|["']$/g, '');
 
     if (isNaN(storeId) || isNaN(variantId)) {
       throw new Error('Invalid store ID or variant ID');
@@ -87,7 +89,7 @@ export const createCheckout = async (): Promise<string> => {
       method: 'POST',
       headers: {
         ...LEMON_SQUEEZY_CONFIG.HEADERS,
-        'Authorization': `Bearer ${LEMON_SQUEEZY_CONFIG.API_KEY}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify(payload)
     });
