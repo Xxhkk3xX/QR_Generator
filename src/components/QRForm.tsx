@@ -35,19 +35,52 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     },
     maxFiles: 1,
     maxSize: 1024 * 1024, // 1MB size limit
-    onDrop: (acceptedFiles) => {
+    onDrop: async (acceptedFiles) => {
       if (acceptedFiles[0]) {
-        // Check image dimensions
-        const img = new Image();
-        img.onload = () => {
-          // Ensure the image is square and at least 100x100 pixels
-          if (img.width >= 100 && img.height >= 100) {
-            setLogo(acceptedFiles[0]);
-          } else {
-            alert(ar.logo.sizeError || 'Logo should be at least 100x100 pixels');
-          }
-        };
-        img.src = URL.createObjectURL(acceptedFiles[0]);
+        try {
+          // Create a canvas to resize the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const img = new Image();
+          
+          img.onload = () => {
+            // Make the image square using the larger dimension
+            const size = Math.max(img.width, img.height);
+            canvas.width = 200; // Fixed size for all logos
+            canvas.height = 200;
+            
+            if (ctx) {
+              // Fill with white background
+              ctx.fillStyle = '#FFFFFF';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              
+              // Calculate position to center the image
+              const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+              const x = (canvas.width - img.width * scale) / 2;
+              const y = (canvas.height - img.height * scale) / 2;
+              
+              // Draw the image centered and scaled
+              ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+              
+              // Convert to blob
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  // Create a new file from the blob
+                  const resizedFile = new File([blob], acceptedFiles[0].name, {
+                    type: 'image/png',
+                    lastModified: Date.now(),
+                  });
+                  setLogo(resizedFile);
+                }
+              }, 'image/png', 1);
+            }
+          };
+          
+          img.src = URL.createObjectURL(acceptedFiles[0]);
+        } catch (error) {
+          console.error('Error resizing image:', error);
+          alert(ar.logo.generalError || 'Error processing image');
+        }
       }
     },
     onDropRejected: (rejectedFiles) => {
@@ -173,9 +206,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
               </p>
               <p className="text-sm text-gray-500">
                 {ar.logo.supportedFormats}
-              </p>
-              <p className="text-sm text-gray-500 mt-1">
-                {ar.logo.requirements || 'Logo should be square, at least 100x100 pixels, and under 1MB'}
               </p>
             </div>
           )}
