@@ -1,3 +1,10 @@
+// Add type declaration for the global variable
+declare const __LEMON_SQUEEZY_CONFIG__: {
+  API_KEY: string;
+  STORE_ID: string;
+  VARIANT_ID: string;
+};
+
 interface LemonSqueezyConfig {
   API_KEY: string;
   STORE_ID: string;
@@ -9,28 +16,15 @@ interface LemonSqueezyConfig {
   };
 }
 
-// Validate environment variables with better error handling and debugging
-const validateEnvVar = (name: string, value: string | undefined): string => {
-  if (!value) {
-    console.error(`[LemonSqueezy] Missing environment variable: ${name}`);
-    return ''; // Return empty string instead of throwing
-  }
-  return value.trim();
-};
-
 // Initialize configuration with validation and fallbacks
 const initConfig = (): LemonSqueezyConfig => {
   // Log all available environment variables (without values)
-  console.log('[LemonSqueezy] Available environment variables:', 
-    Object.keys(import.meta.env)
-      .filter(key => key.startsWith('VITE_'))
-      .join(', ')
-  );
+  console.log('[LemonSqueezy] Initializing configuration');
 
   const config = {
-    API_KEY: validateEnvVar('VITE_LEMON_SQUEEZY_API_KEY', import.meta.env.VITE_LEMON_SQUEEZY_API_KEY),
-    STORE_ID: validateEnvVar('VITE_LEMON_SQUEEZY_STORE_ID', import.meta.env.VITE_LEMON_SQUEEZY_STORE_ID),
-    VARIANT_ID: validateEnvVar('VITE_LEMON_SQUEEZY_VARIANT_ID', import.meta.env.VITE_LEMON_SQUEEZY_VARIANT_ID),
+    API_KEY: __LEMON_SQUEEZY_CONFIG__.API_KEY,
+    STORE_ID: __LEMON_SQUEEZY_CONFIG__.STORE_ID,
+    VARIANT_ID: __LEMON_SQUEEZY_CONFIG__.VARIANT_ID,
     BASE_URL: 'https://api.lemonsqueezy.com/v1',
     HEADERS: {
       'Accept': 'application/vnd.api+json',
@@ -43,8 +37,20 @@ const initConfig = (): LemonSqueezyConfig => {
     hasApiKey: !!config.API_KEY,
     hasStoreId: !!config.STORE_ID,
     hasVariantId: !!config.VARIANT_ID,
+    apiKeyLength: config.API_KEY?.length || 0,
     baseUrl: config.BASE_URL
   });
+
+  // Validate configuration
+  if (!config.API_KEY) {
+    console.error('[LemonSqueezy] API key is not configured');
+    throw new Error('API key is not configured');
+  }
+
+  if (!config.STORE_ID || !config.VARIANT_ID) {
+    console.error('[LemonSqueezy] Store ID or Variant ID is not configured');
+    throw new Error('Store ID or Variant ID is not configured');
+  }
 
   return config;
 };
