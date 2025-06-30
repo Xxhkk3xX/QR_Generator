@@ -44,8 +44,8 @@ export default defineConfig(({ mode }) => {
     define: {
       __LEMON_SQUEEZY_CONFIG__: {
         API_KEY: JSON.stringify(env.VITE_LEMON_SQUEEZY_API_KEY || ''),
-        STORE_ID: JSON.stringify(env.VITE_LEMON_SQUEEZY_STORE_ID || ''),
-        VARIANT_ID: JSON.stringify(env.VITE_LEMON_SQUEEZY_VARIANT_ID || '')
+        STORE_ID: parseInt(env.VITE_LEMON_SQUEEZY_STORE_ID || '0').toString(),
+        VARIANT_ID: parseInt(env.VITE_LEMON_SQUEEZY_VARIANT_ID || '0').toString()
       }
     }
   }
