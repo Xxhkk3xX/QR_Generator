@@ -41,15 +41,34 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         }),
       };
 
-      if (qrRef.current) {
-        qrRef.current._canvas.remove();
-      }
-
-      qrRef.current = generateQR(qrOptions);
-
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
-        await qrRef.current.append(containerRef.current);
+      if (!qrRef.current) {
+        qrRef.current = generateQR(qrOptions);
+        if (containerRef.current) {
+          await qrRef.current.append(containerRef.current);
+        }
+      } else {
+        // Update existing QR code
+        qrRef.current.update({
+          data: options.text,
+          dotsOptions: {
+            color: options.foregroundColor,
+            type: 'square',
+          },
+          backgroundOptions: {
+            color: options.backgroundColor,
+          },
+          cornersSquareOptions: {
+            color: options.foregroundColor,
+            type: 'square',
+          },
+          cornersDotOptions: {
+            color: options.foregroundColor,
+            type: options.cornerStyle,
+          },
+          ...(logoUrl && {
+            image: logoUrl,
+          }),
+        });
       }
 
       if (logoUrl) {

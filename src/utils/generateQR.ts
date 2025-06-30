@@ -25,7 +25,7 @@ export const generateQR = ({
   size = 300,
   margin = 10,
 }: QROptions) => {
-  return new QRCodeStyling({
+  const qr = new QRCodeStyling({
     width: size,
     height: size,
     type: 'canvas',
@@ -35,12 +35,6 @@ export const generateQR = ({
       typeNumber: 0,
       mode: 'Byte',
       errorCorrectionLevel: 'Q',
-    },
-    imageOptions: {
-      hideBackgroundDots: true,
-      imageSize: 0.4,
-      margin: 0,
-      crossOrigin: 'anonymous',
     },
     dotsOptions: {
       color: foregroundColor,
@@ -67,4 +61,6 @@ export const generateQR = ({
       },
     }),
   });
+
+  return qr;
 }; 
