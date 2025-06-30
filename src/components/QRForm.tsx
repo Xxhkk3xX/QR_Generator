@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ar } from '../locales/ar';
 
@@ -21,6 +21,11 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   });
   const [logo, setLogo] = useState<File | null>(null);
 
+  // Trigger update whenever logo changes
+  useEffect(() => {
+    handleUpdate({});
+  }, [logo]);
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.png', '.jpg', '.jpeg']
@@ -29,7 +34,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     onDrop: (acceptedFiles) => {
       if (acceptedFiles[0]) {
         setLogo(acceptedFiles[0]);
-        handleUpdate({ logo: acceptedFiles[0] });
       }
     },
   });
@@ -39,7 +43,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     setFormData(newData);
     onUpdate({
       ...newData,
-      logo: update.logo || logo || undefined,
+      logo: logo || undefined,
     });
   };
 
@@ -71,14 +75,16 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
             {ar.foregroundColor}
           </label>
           <div className="flex items-center space-x-4">
-            <input
-              type="color"
-              id="foregroundColor"
-              name="foregroundColor"
-              className="h-12 w-24 rounded-lg cursor-pointer"
-              value={formData.foregroundColor}
-              onChange={handleInputChange}
-            />
+            <div className="relative">
+              <input
+                type="color"
+                id="foregroundColor"
+                name="foregroundColor"
+                className="h-12 w-24 rounded-lg cursor-pointer"
+                value={formData.foregroundColor}
+                onChange={handleInputChange}
+              />
+            </div>
             <span className="text-body">{formData.foregroundColor.toUpperCase()}</span>
           </div>
         </div>
@@ -88,14 +94,18 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
             {ar.backgroundColor}
           </label>
           <div className="flex items-center space-x-4">
-            <input
-              type="color"
-              id="backgroundColor"
-              name="backgroundColor"
-              className="h-12 w-24 rounded-lg cursor-pointer"
-              value={formData.backgroundColor}
-              onChange={handleInputChange}
-            />
+            <div className="relative">
+              <input
+                type="color"
+                id="backgroundColor"
+                name="backgroundColor"
+                className="h-12 w-24 rounded-lg cursor-pointer"
+                value={formData.backgroundColor}
+                onChange={handleInputChange}
+              />
+              {/* Border to make white color picker visible */}
+              <div className="absolute inset-0 rounded-lg border border-gray-300 pointer-events-none"></div>
+            </div>
             <span className="text-body">{formData.backgroundColor.toUpperCase()}</span>
           </div>
         </div>
@@ -134,7 +144,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
-                  handleUpdate({ logo: undefined });
                 }}
               >
                 {ar.logo.remove}

@@ -22,69 +22,79 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
     if (!options.text) return;
 
     const generateQRCode = async () => {
-      // Clean up previous logo URL if it exists
-      if (logoUrlRef.current) {
-        URL.revokeObjectURL(logoUrlRef.current);
-        logoUrlRef.current = '';
-      }
-
-      // Create new logo URL if logo exists
-      let logoUrl = '';
-      if (options.logo) {
-        logoUrl = URL.createObjectURL(options.logo);
-        logoUrlRef.current = logoUrl;
-      }
-
-      const qrOptions: QROptions = {
-        data: options.text,
-        foregroundColor: options.foregroundColor,
-        backgroundColor: options.backgroundColor,
-        cornersDotOptions: {
-          type: options.cornerStyle,
-          color: options.foregroundColor,
-        },
-        ...(logoUrl && {
-          logo: {
-            url: logoUrl,
-            size: 0.25, // Reduced logo size for better QR code readability
-          },
-        }),
-      };
-
-      if (!qrRef.current) {
-        qrRef.current = generateQR(qrOptions);
-        if (containerRef.current) {
-          await qrRef.current.append(containerRef.current);
+      try {
+        // Clean up previous logo URL if it exists
+        if (logoUrlRef.current) {
+          URL.revokeObjectURL(logoUrlRef.current);
+          logoUrlRef.current = '';
         }
-      } else {
-        // Update existing QR code
-        await qrRef.current.update({
+
+        // Create new logo URL if logo exists
+        let logoUrl = '';
+        if (options.logo) {
+          logoUrl = URL.createObjectURL(options.logo);
+          logoUrlRef.current = logoUrl;
+        }
+
+        const qrOptions: QROptions = {
           data: options.text,
-          dotsOptions: {
-            color: options.foregroundColor,
-            type: 'square',
-          },
-          backgroundOptions: {
-            color: options.backgroundColor,
-          },
-          cornersSquareOptions: {
-            color: options.foregroundColor,
-            type: 'square',
-          },
+          foregroundColor: options.foregroundColor,
+          backgroundColor: options.backgroundColor,
           cornersDotOptions: {
-            color: options.foregroundColor,
             type: options.cornerStyle,
+            color: options.foregroundColor,
           },
           ...(logoUrl && {
-            image: logoUrl,
-            imageOptions: {
-              hideBackgroundDots: true,
-              imageSize: 0.25,
-              margin: 0,
-              crossOrigin: 'anonymous',
+            logo: {
+              url: logoUrl,
+              size: 0.25,
             },
           }),
-        });
+        };
+
+        if (!qrRef.current) {
+          qrRef.current = generateQR(qrOptions);
+          if (containerRef.current) {
+            containerRef.current.innerHTML = '';
+            await qrRef.current.append(containerRef.current);
+          }
+        } else {
+          // Update existing QR code
+          const updateConfig = {
+            data: options.text,
+            dotsOptions: {
+              color: options.foregroundColor,
+              type: 'square',
+            },
+            backgroundOptions: {
+              color: options.backgroundColor,
+            },
+            cornersSquareOptions: {
+              color: options.foregroundColor,
+              type: 'square',
+            },
+            cornersDotOptions: {
+              color: options.foregroundColor,
+              type: options.cornerStyle,
+            },
+          };
+
+          if (logoUrl) {
+            Object.assign(updateConfig, {
+              image: logoUrl,
+              imageOptions: {
+                hideBackgroundDots: true,
+                imageSize: 0.25,
+                margin: 0,
+                crossOrigin: 'anonymous',
+              },
+            });
+          }
+
+          await qrRef.current.update(updateConfig);
+        }
+      } catch (error) {
+        console.error('Error generating QR code:', error);
       }
     };
 
