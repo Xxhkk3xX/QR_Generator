@@ -42,7 +42,24 @@ export const createCheckout = async (): Promise<string> => {
           store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
           variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
           product_options: {
-            enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)]
+            name: "QR Code Generator",
+            description: "Generate beautiful QR codes with your brand colors and logo",
+            media: [],
+            enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)],
+            redirect_url: window.location.origin + "/success",
+            receipt_button_text: "تحميل",
+            receipt_link_url: window.location.origin + "/download",
+            receipt_thank_you_note: "شكراً لك على الشراء!"
+          },
+          checkout_data: {
+            email: "test@example.com", // Required by API
+            name: "Test User", // Required by API
+            billing_address: {
+              country: "KW" // Kuwait country code
+            },
+            tax_number: "",
+            discount_code: "",
+            custom_data: {}
           },
           checkout_options: {
             dark: false,
@@ -57,7 +74,7 @@ export const createCheckout = async (): Promise<string> => {
       }
     };
 
-    console.log('Sending checkout payload:', payload);
+    console.log('Sending checkout payload:', JSON.stringify(payload, null, 2));
 
     const response = await fetch(`${LEMON_SQUEEZY_CONFIG.BASE_URL}/checkouts`, {
       method: 'POST',
