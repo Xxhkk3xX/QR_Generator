@@ -92,4 +92,22 @@ export const createCheckout = async (): Promise<string> => {
     console.error('Error creating checkout:', error);
     throw error;
   }
-}; 
+};
+
+export const LEMON_SQUEEZY_CONFIG = {
+  API_KEY: import.meta.env.VITE_LEMON_SQUEEZY_API_KEY,
+  BASE_URL: 'https://api.lemonsqueezy.com/v1',
+  STORE_ID: import.meta.env.VITE_LEMON_SQUEEZY_STORE_ID,
+  VARIANT_ID: import.meta.env.VITE_LEMON_SQUEEZY_VARIANT_ID,
+  HEADERS: {
+    'Accept': 'application/vnd.api+json',
+    'Content-Type': 'application/vnd.api+json',
+  }
+};
+
+// Verify environment variables are loaded
+console.log('Lemon Squeezy Config Loaded:', {
+  storeId: LEMON_SQUEEZY_CONFIG.STORE_ID,
+  variantId: LEMON_SQUEEZY_CONFIG.VARIANT_ID,
+  hasApiKey: !!LEMON_SQUEEZY_CONFIG.API_KEY
+}); 
