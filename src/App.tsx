@@ -21,55 +21,44 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="max-w-4xl mx-auto py-6 sm:py-12 px-3 sm:px-6 lg:px-8">
-        <header className="text-center mb-8 sm:mb-12">
-          <h1 className="heading-1 mb-3 sm:mb-4 text-3xl sm:text-4xl">
-            {ar.title}
-          </h1>
-          <p className="text-body text-base sm:text-lg max-w-2xl mx-auto">
-            {ar.subtitle}
-          </p>
-        </header>
+    <div className="container">
+      <header className="text-center my-8">
+        <h1 className="text-4xl font-bold mb-4">{ar.title}</h1>
+        <p className="text-gray-600 text-lg">{ar.subtitle}</p>
+      </header>
 
-        {/* Instructions Section */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8 sm:mb-12 text-right" dir="rtl">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
-            {ar.instructions.title}
-          </h2>
-          <ol className="list-none space-y-2">
-            {ar.instructions.steps.map((step, index) => (
-              <li key={index} className="flex items-start space-x-reverse space-x-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-sm mt-0.5">
-                  {index + 1}
-                </span>
-                <span className="text-gray-700 text-base sm:text-lg">{step}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
-          {/* QR Preview Section */}
-          <div className="lg:sticky lg:top-8 space-y-4 sm:space-y-6">
-            <div className="card p-4 sm:p-6">
-              <QRPreview options={qrOptions} />
-            </div>
-            <div className="mt-8">
-              <BuyButton className="w-full" />
-            </div>
-          </div>
-
-          {/* Form Section */}
-          <div className="card p-4 sm:p-6">
-            <QRForm onUpdate={setQROptions} />
-          </div>
-        </div>
-
-        <footer className="mt-8 sm:mt-16 text-center text-body text-sm sm:text-base">
-          <p>© {new Date().getFullYear()} QR Generator. All rights reserved.</p>
-        </footer>
+      <div className="card mb-8" dir="rtl">
+        <h2 className="text-2xl font-bold mb-4">{ar.instructions.title}</h2>
+        <ol className="space-y-4">
+          {ar.instructions.steps.map((step, index) => (
+            <li key={index} className="flex gap-3">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-black text-white flex items-center justify-center">
+                {index + 1}
+              </span>
+              <span className="text-gray-700">{step}</span>
+            </li>
+          ))}
+        </ol>
       </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        <div>
+          <div className="card">
+            <QRPreview options={qrOptions} />
+          </div>
+          <div className="mt-8">
+            <BuyButton />
+          </div>
+        </div>
+
+        <div className="card">
+          <QRForm onUpdate={setQROptions} />
+        </div>
+      </div>
+
+      <footer className="text-center text-gray-600 text-sm mt-8">
+        © {new Date().getFullYear()} QR Generator
+      </footer>
     </div>
   )
 }
