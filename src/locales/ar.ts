@@ -1,20 +1,20 @@
 export const ar = {
-  title: 'منشئ رمز QR',
-  subtitle: 'أنشئ رموز QR جميلة ومخصصة بألوان علامتك التجارية وشعارك في ثوانٍ',
-  qrContent: 'محتوى رمز QR',
-  urlPlaceholder: 'أدخل الرابط أو النص',
+  title: 'مولد رمز QR الكويت',
+  subtitle: 'أنشئ رموز QR جميلة وقابلة للتخصيص لعملك أو استخدامك الشخصي',
+  qrContent: 'المحتوى أو الرابط',
+  urlPlaceholder: 'أدخل عنوان URL أو النص الخاص بك',
   foregroundColor: 'لون المقدمة',
   backgroundColor: 'لون الخلفية',
   cornerStyle: 'نمط الزوايا',
   cornerStyles: {
     square: 'مربع',
-    dot: 'نقطة'
+    dot: 'نقطة',
   },
   logo: {
-    title: 'الشعار (اختياري)',
+    title: 'شعار (اختياري)',
     dropzone: 'اسحب وأفلت الشعار هنا، أو انقر للاختيار',
-    supportedFormats: 'يدعم PNG، JPG حتى 2MB',
-    remove: 'إزالة'
+    supportedFormats: 'PNG، JPG، JPEG مدعومة',
+    remove: 'إزالة',
   },
   preview: 'معاينة',
   buyButton: 'شراء وتحميل',

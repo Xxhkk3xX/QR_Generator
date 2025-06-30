@@ -52,17 +52,7 @@ function App() {
         </div>
 
         <footer className="mt-16 text-center text-body">
-          <p>
-            {ar.footer.secure}{' '}
-            <a
-              href="https://www.lemonsqueezy.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-900 font-medium hover:underline"
-            >
-              Lemon Squeezy
-            </a>
-          </p>
+          <p>© 2024 Kuwait QR Code Generator</p>
         </footer>
       </div>
     </div>
