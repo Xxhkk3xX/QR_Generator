@@ -10,6 +10,12 @@ permissions:
   pages: write
   id-token: write
 
+# Environment variables available to all jobs and steps
+env:
+  VITE_LEMON_SQUEEZY_API_KEY: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY }}
+  VITE_LEMON_SQUEEZY_STORE_ID: ${{ secrets.VITE_LEMON_SQUEEZY_STORE_ID }}
+  VITE_LEMON_SQUEEZY_VARIANT_ID: ${{ secrets.VITE_LEMON_SQUEEZY_VARIANT_ID }}
+
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -17,6 +23,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
     steps:
       - uses: actions/checkout@v4
       
@@ -37,17 +44,22 @@ jobs:
           echo "Directory contents: $(ls -la)"
           
       - name: Build
-        env:
-          VITE_LEMON_SQUEEZY_API_KEY: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY }}
-          VITE_LEMON_SQUEEZY_STORE_ID: ${{ secrets.VITE_LEMON_SQUEEZY_STORE_ID }}
-          VITE_LEMON_SQUEEZY_VARIANT_ID: ${{ secrets.VITE_LEMON_SQUEEZY_VARIANT_ID }}
         run: |
-          echo "Building with store ID: $VITE_LEMON_SQUEEZY_STORE_ID"
-          echo "Building with variant ID: $VITE_LEMON_SQUEEZY_VARIANT_ID"
-          echo "API key is set: ${{ secrets.VITE_LEMON_SQUEEZY_API_KEY != '' }}"
+          echo "Checking environment variables:"
+          echo "API key length: ${#VITE_LEMON_SQUEEZY_API_KEY}"
+          echo "Store ID is set: ${VITE_LEMON_SQUEEZY_STORE_ID:+yes}"
+          echo "Variant ID is set: ${VITE_LEMON_SQUEEZY_VARIANT_ID:+yes}"
           echo "Environment variables:"
           env | grep VITE_ || true
+          
+          # Create .env file for Vite
+          echo "VITE_LEMON_SQUEEZY_API_KEY=$VITE_LEMON_SQUEEZY_API_KEY" > .env
+          echo "VITE_LEMON_SQUEEZY_STORE_ID=$VITE_LEMON_SQUEEZY_STORE_ID" >> .env
+          echo "VITE_LEMON_SQUEEZY_VARIANT_ID=$VITE_LEMON_SQUEEZY_VARIANT_ID" >> .env
+          
+          # Run build
           npm run build
+          
           echo "Build completed. Checking dist directory:"
           ls -la dist/
         
