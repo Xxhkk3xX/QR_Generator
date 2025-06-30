@@ -41,17 +41,8 @@ export const createCheckout = async (): Promise<string> => {
         attributes: {
           store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
           variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
-          custom_price: 0,
-          preview: false,
-          checkout_data: {
-            email: "",
-            name: "",
-            billing_address: {
-              country: ""
-            },
-            tax_number: "",
-            discount_code: "",
-            custom_data: {}
+          product_options: {
+            enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)]
           },
           checkout_options: {
             dark: false,
@@ -61,9 +52,7 @@ export const createCheckout = async (): Promise<string> => {
             discount: false,
             testimonials: false,
             custom_button_text: "اشترِ الآن - ٢.٥ د.ك"
-          },
-          success_url: window.location.origin + "/success",
-          expires_at: null
+          }
         }
       }
     };
