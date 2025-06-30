@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { QRForm } from './components/QRForm'
 import { QRPreview } from './components/QRPreview'
 import { BuyButton } from './components/BuyButton'
-import { ar } from './locales/ar'
-import './styles/index.css'
+import './App.css'
 
 interface QROptions {
   text: string;
@@ -19,52 +18,51 @@ function App() {
     foregroundColor: '#000000',
     backgroundColor: '#ffffff',
     cornerStyle: 'square',
-  })
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-4xl mx-auto">
-        <header className="text-center mb-16">
-          <h1 className="heading-1 mb-4">
-            {ar.title}
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <header className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Kuwait QR Code Generator
           </h1>
-          <p className="text-body text-lg max-w-2xl mx-auto">
-            {ar.subtitle}
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Create beautiful, customizable QR codes for your business or personal use
           </p>
-          <BuyButton
-            productId="YOUR_PRODUCT_ID"
-            className="btn btn-primary mt-8 inline-block"
-          />
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="card">
-            <QRForm onUpdate={setQROptions} />
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* QR Preview Section */}
+          <div className="order-1 md:order-none">
+            <div className="sticky top-8">
+              <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+                  Your QR Code
+                </h2>
+                <QRPreview options={qrOptions} isPreview={!qrOptions.text} />
+                <div className="mt-6">
+                  <BuyButton productId="YOUR_PRODUCT_ID" />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="lg:sticky lg:top-8 space-y-6">
-            <div className="card">
-              <QRPreview options={qrOptions} />
+          {/* Form Section */}
+          <div className="order-2 md:order-none">
+            <div className="bg-white rounded-2xl shadow-lg">
+              <h2 className="text-2xl font-semibold text-gray-900 p-6 md:p-8 border-b border-gray-100">
+                Customize Your QR Code
+              </h2>
+              <QRForm onUpdate={setQROptions} />
             </div>
-            <BuyButton
-              productId="YOUR_PRODUCT_ID"
-              className="btn btn-primary w-full"
-            />
           </div>
         </div>
 
-        <footer className="mt-16 text-center text-body">
-          <p>
-            {ar.footer.secure}{' '}
-            <a
-              href="https://www.lemonsqueezy.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-900 font-medium hover:underline"
-            >
-              Lemon Squeezy
-            </a>
-          </p>
+        {/* Footer */}
+        <footer className="mt-16 text-center text-gray-600">
+          <p>© 2024 Kuwait QR Code Generator. All rights reserved.</p>
         </footer>
       </div>
     </div>

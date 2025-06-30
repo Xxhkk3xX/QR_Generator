@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ar } from '../locales/ar';
 
@@ -21,11 +21,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   });
   const [logo, setLogo] = useState<File | null>(null);
 
-  // Trigger update whenever logo changes
-  useEffect(() => {
-    handleUpdate({});
-  }, [logo]);
-
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.png', '.jpg', '.jpeg']
@@ -34,6 +29,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     onDrop: (acceptedFiles) => {
       if (acceptedFiles[0]) {
         setLogo(acceptedFiles[0]);
+        handleUpdate({ logo: acceptedFiles[0] });
       }
     },
   });
@@ -43,7 +39,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
     setFormData(newData);
     onUpdate({
       ...newData,
-      logo: logo || undefined,
+      logo: update.logo || logo || undefined,
     });
   };
 
@@ -53,25 +49,27 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   };
 
   return (
-    <div className="space-y-8 p-6">
-      <div>
-        <label htmlFor="text" className="heading-2 block mb-2">
+    <div className="space-y-6 p-6 md:p-8">
+      {/* URL Input */}
+      <div className="space-y-2">
+        <label htmlFor="text" className="block text-sm font-medium text-gray-700">
           {ar.qrContent}
         </label>
         <input
           type="text"
           id="text"
           name="text"
-          className="input"
+          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all"
           value={formData.text}
           onChange={handleInputChange}
           placeholder={ar.urlPlaceholder}
         />
       </div>
 
+      {/* Color Inputs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="foregroundColor" className="heading-2 block mb-2">
+        <div className="space-y-2">
+          <label htmlFor="foregroundColor" className="block text-sm font-medium text-gray-700">
             {ar.foregroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -85,12 +83,12 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <span className="text-body">{formData.foregroundColor.toUpperCase()}</span>
+            <span className="text-sm text-gray-600">{formData.foregroundColor.toUpperCase()}</span>
           </div>
         </div>
 
-        <div>
-          <label htmlFor="backgroundColor" className="heading-2 block mb-2">
+        <div className="space-y-2">
+          <label htmlFor="backgroundColor" className="block text-sm font-medium text-gray-700">
             {ar.backgroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -103,22 +101,22 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 value={formData.backgroundColor}
                 onChange={handleInputChange}
               />
-              {/* Border to make white color picker visible */}
-              <div className="absolute inset-0 rounded-lg border border-gray-300 pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-lg border border-gray-200 pointer-events-none"></div>
             </div>
-            <span className="text-body">{formData.backgroundColor.toUpperCase()}</span>
+            <span className="text-sm text-gray-600">{formData.backgroundColor.toUpperCase()}</span>
           </div>
         </div>
       </div>
 
-      <div>
-        <label htmlFor="cornerStyle" className="heading-2 block mb-2">
+      {/* Corner Style */}
+      <div className="space-y-2">
+        <label htmlFor="cornerStyle" className="block text-sm font-medium text-gray-700">
           {ar.cornerStyle}
         </label>
         <select
           id="cornerStyle"
           name="cornerStyle"
-          className="input"
+          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all"
           value={formData.cornerStyle}
           onChange={handleInputChange}
         >
@@ -127,23 +125,25 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
         </select>
       </div>
 
-      <div>
-        <label className="heading-2 block mb-2">
+      {/* Logo Upload */}
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">
           {ar.logo.title}
         </label>
         <div
           {...getRootProps()}
-          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
+          className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-gray-400 transition-all bg-gray-50"
         >
           <input {...getInputProps()} />
           {logo ? (
-            <div className="text-body">
-              {logo.name}
+            <div className="flex items-center justify-center space-x-2">
+              <span className="text-sm text-gray-600">{logo.name}</span>
               <button
-                className="mr-3 text-red-500 hover:text-red-700 font-medium"
+                className="text-red-500 hover:text-red-700 font-medium text-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
+                  handleUpdate({ logo: undefined });
                 }}
               >
                 {ar.logo.remove}
@@ -151,10 +151,10 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
             </div>
           ) : (
             <div>
-              <p className="text-body mb-2">
+              <p className="text-sm text-gray-600 mb-1">
                 {ar.logo.dropzone}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs text-gray-500">
                 {ar.logo.supportedFormats}
               </p>
             </div>

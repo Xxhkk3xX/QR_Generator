@@ -19,8 +19,6 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
   const logoUrlRef = useRef<string>('');
 
   useEffect(() => {
-    if (!options.text) return;
-
     const generateQRCode = async () => {
       try {
         // Clean up previous logo URL if it exists
@@ -37,7 +35,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         }
 
         const qrOptions: QROptions = {
-          data: options.text,
+          data: options.text || 'https://kwtech.it.com',
           foregroundColor: options.foregroundColor,
           backgroundColor: options.backgroundColor,
           cornersDotOptions: {
@@ -61,7 +59,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         } else {
           // Update existing QR code
           const updateConfig = {
-            data: options.text,
+            data: options.text || 'https://kwtech.it.com',
             dotsOptions: {
               color: options.foregroundColor,
               type: 'square',
@@ -112,12 +110,12 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
     <div className="relative">
       <div
         ref={containerRef}
-        className="flex justify-center items-center min-h-[350px] bg-gray-50 rounded-xl p-8"
+        className="flex justify-center items-center min-h-[350px] bg-white rounded-xl p-8 shadow-lg transition-all hover:shadow-xl"
       />
-      {isPreview && (
+      {isPreview && options.text === '' && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/5 backdrop-blur-[1px] rounded-xl">
           <span className="text-black/70 text-xl font-bold transform -rotate-45 bg-white/80 px-6 py-2 rounded-full shadow-sm">
-            PREVIEW
+            DEMO QR
           </span>
         </div>
       )}
