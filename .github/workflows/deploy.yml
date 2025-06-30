@@ -34,14 +34,23 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm ci
-        
+        run: |
+          npm ci
+          npm list typescript
+          npm list vite
+          
       - name: Debug Environment
         run: |
           echo "Node version: $(node -v)"
           echo "NPM version: $(npm -v)"
+          echo "TypeScript version: $(npx tsc --version)"
           echo "Working directory: $(pwd)"
           echo "Directory contents: $(ls -la)"
+          
+      - name: TypeScript Check
+        run: |
+          echo "Running TypeScript compilation check..."
+          npx tsc --noEmit
           
       - name: Build
         run: |
@@ -57,11 +66,16 @@ jobs:
           echo "VITE_LEMON_SQUEEZY_STORE_ID=$VITE_LEMON_SQUEEZY_STORE_ID" >> .env
           echo "VITE_LEMON_SQUEEZY_VARIANT_ID=$VITE_LEMON_SQUEEZY_VARIANT_ID" >> .env
           
-          # Run build
-          npm run build
+          # Run build with debug output
+          npm run build --debug
           
           echo "Build completed. Checking dist directory:"
           ls -la dist/
+          
+          if [ ! -f dist/index.html ]; then
+            echo "Error: dist/index.html not found!"
+            exit 1
+          fi
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
