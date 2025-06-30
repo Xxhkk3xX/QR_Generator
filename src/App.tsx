@@ -3,7 +3,6 @@ import { QRForm } from './components/QRForm'
 import { QRPreview } from './components/QRPreview'
 import { BuyButton } from './components/BuyButton'
 import { ar } from './locales/ar'
-import './App.css'
 
 interface QROptions {
   text: string;
