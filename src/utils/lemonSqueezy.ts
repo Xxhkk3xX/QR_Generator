@@ -45,14 +45,14 @@ export const createCheckout = async (): Promise<string> => {
         data: {
           type: 'checkouts',
           attributes: {
-            store_id: 51369,
-            variant_id: 148858,
+            store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
+            variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
             custom_price: 2.5,
             product_options: {
               enabled_variants: [],
-              redirect_url: "https://kwtech.it.com/success",
+              redirect_url: window.location.origin + "/success",
               receipt_button_text: "تحميل",
-              receipt_link_url: "https://kwtech.it.com/download",
+              receipt_link_url: window.location.origin + "/download",
               receipt_thank_you_note: "شكراً لك على الشراء!"
             },
             checkout_options: {

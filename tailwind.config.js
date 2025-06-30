@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'media',
   theme: {
     extend: {
       fontFamily: {
@@ -22,12 +23,22 @@ export default {
           800: '#1F2937',
           900: '#111827',
         },
+        blue: {
+          600: '#2563EB',
+          700: '#1D4ED8',
+        },
         'kuwait-blue': '#00A3E0',
         'kuwait-red': '#CE1126',
         'kuwait-green': '#007A3D',
       },
       borderRadius: {
         'xl': '1rem',
+      },
+      ringOffsetWidth: {
+        '2': '2px',
+      },
+      ringWidth: {
+        '2': '2px',
       },
     },
   },
