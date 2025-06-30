@@ -16,7 +16,7 @@ interface QROptions {
 function App() {
   const [qrOptions, setQROptions] = useState<QROptions>({
     text: '',
-    foregroundColor: '#007A3D', // Kuwait flag green
+    foregroundColor: '#000000',
     backgroundColor: '#ffffff',
     cornerStyle: 'square',
   })
@@ -25,7 +25,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-16">
-          <h1 className="heading-1 mb-4 text-kuwait-green">
+          <h1 className="heading-1 mb-4">
             {ar.title}
           </h1>
           <p className="text-body text-lg max-w-2xl mx-auto">
@@ -33,7 +33,7 @@ function App() {
           </p>
           <BuyButton
             productId="YOUR_PRODUCT_ID"
-            className="btn btn-primary mt-8 inline-block bg-kuwait-green hover:bg-kuwait-green/90"
+            className="btn btn-primary mt-8 inline-block"
           />
         </header>
 
@@ -48,7 +48,7 @@ function App() {
             </div>
             <BuyButton
               productId="YOUR_PRODUCT_ID"
-              className="btn btn-primary w-full bg-kuwait-green hover:bg-kuwait-green/90"
+              className="btn btn-primary w-full"
             />
           </div>
         </div>
@@ -60,7 +60,7 @@ function App() {
               href="https://www.lemonsqueezy.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-kuwait-green font-medium hover:underline"
+              className="text-gray-900 font-medium hover:underline"
             >
               Lemon Squeezy
             </a>

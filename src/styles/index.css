@@ -3,9 +3,9 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --kuwait-green: #007A3D;
-  --kuwait-red: #CE1126;
-  --kuwait-blue: #00A3E0;
+  --primary-color: #000000;
+  --primary-hover: #1a1a1a;
+  --accent-red: #CE1126;
 }
 
 body {
@@ -28,12 +28,12 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--kuwait-green);
+  background-color: var(--primary-color);
   color: #FFFFFF;
 }
 
 .btn-primary:hover {
-  background-color: #006A33;
+  background-color: var(--primary-hover);
 }
 
 .input {
@@ -48,7 +48,7 @@ body {
 .input:focus {
   outline: none;
   border-color: transparent;
-  box-shadow: 0 0 0 2px var(--kuwait-green);
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
 .card {
@@ -81,11 +81,11 @@ body {
 
 @layer components {
   .heading-1 {
-    @apply text-4xl font-bold text-kuwait-green tracking-tight;
+    @apply text-4xl font-bold text-gray-900 tracking-tight;
   }
 
   .heading-2 {
-    @apply text-2xl font-semibold text-kuwait-green;
+    @apply text-2xl font-semibold text-gray-800;
   }
 
   .text-body {

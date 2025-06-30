@@ -16,14 +16,23 @@ interface QRPreviewProps {
 export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const qrRef = useRef<any>(null);
+  const logoUrlRef = useRef<string>('');
 
   useEffect(() => {
     if (!options.text) return;
 
     const generateQRCode = async () => {
+      // Clean up previous logo URL if it exists
+      if (logoUrlRef.current) {
+        URL.revokeObjectURL(logoUrlRef.current);
+        logoUrlRef.current = '';
+      }
+
+      // Create new logo URL if logo exists
       let logoUrl = '';
       if (options.logo) {
         logoUrl = URL.createObjectURL(options.logo);
+        logoUrlRef.current = logoUrl;
       }
 
       const qrOptions: QROptions = {
@@ -37,6 +46,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         ...(logoUrl && {
           logo: {
             url: logoUrl,
+            size: 0.25, // Reduced logo size for better QR code readability
           },
         }),
       };
@@ -48,7 +58,7 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         }
       } else {
         // Update existing QR code
-        qrRef.current.update({
+        await qrRef.current.update({
           data: options.text,
           dotsOptions: {
             color: options.foregroundColor,
@@ -67,16 +77,25 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
           },
           ...(logoUrl && {
             image: logoUrl,
+            imageOptions: {
+              hideBackgroundDots: true,
+              imageSize: 0.25,
+              margin: 0,
+              crossOrigin: 'anonymous',
+            },
           }),
         });
-      }
-
-      if (logoUrl) {
-        URL.revokeObjectURL(logoUrl);
       }
     };
 
     generateQRCode();
+
+    // Cleanup function
+    return () => {
+      if (logoUrlRef.current) {
+        URL.revokeObjectURL(logoUrlRef.current);
+      }
+    };
   }, [options]);
 
   return (

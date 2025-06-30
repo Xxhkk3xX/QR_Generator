@@ -15,7 +15,7 @@ interface QRFormProps {
 export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   const [formData, setFormData] = useState({
     text: '',
-    foregroundColor: '#007A3D', // Kuwait flag green
+    foregroundColor: '#000000',
     backgroundColor: '#ffffff',
     cornerStyle: 'square' as const,
   });
@@ -51,7 +51,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   return (
     <div className="space-y-8 p-6">
       <div>
-        <label htmlFor="text" className="heading-2 block mb-2 text-kuwait-green">
+        <label htmlFor="text" className="heading-2 block mb-2">
           {ar.qrContent}
         </label>
         <input
@@ -67,7 +67,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="foregroundColor" className="heading-2 block mb-2 text-kuwait-green">
+          <label htmlFor="foregroundColor" className="heading-2 block mb-2">
             {ar.foregroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -84,7 +84,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
         </div>
 
         <div>
-          <label htmlFor="backgroundColor" className="heading-2 block mb-2 text-kuwait-green">
+          <label htmlFor="backgroundColor" className="heading-2 block mb-2">
             {ar.backgroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -102,7 +102,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       </div>
 
       <div>
-        <label htmlFor="cornerStyle" className="heading-2 block mb-2 text-kuwait-green">
+        <label htmlFor="cornerStyle" className="heading-2 block mb-2">
           {ar.cornerStyle}
         </label>
         <select
@@ -118,19 +118,19 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       </div>
 
       <div>
-        <label className="heading-2 block mb-2 text-kuwait-green">
+        <label className="heading-2 block mb-2">
           {ar.logo.title}
         </label>
         <div
           {...getRootProps()}
-          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-kuwait-green transition-colors bg-gray-50"
+          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
         >
           <input {...getInputProps()} />
           {logo ? (
             <div className="text-body">
               {logo.name}
               <button
-                className="mr-3 text-kuwait-red hover:text-kuwait-red/80 font-medium"
+                className="mr-3 text-red-500 hover:text-red-700 font-medium"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
