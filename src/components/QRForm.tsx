@@ -49,27 +49,25 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
   };
 
   return (
-    <div className="space-y-6 p-6 md:p-8">
-      {/* URL Input */}
-      <div className="space-y-2">
-        <label htmlFor="text" className="block text-sm font-medium text-gray-700">
+    <div className="space-y-8 p-6">
+      <div>
+        <label htmlFor="text" className="heading-2 block mb-2">
           {ar.qrContent}
         </label>
         <input
           type="text"
           id="text"
           name="text"
-          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+          className="input"
           value={formData.text}
           onChange={handleInputChange}
           placeholder={ar.urlPlaceholder}
         />
       </div>
 
-      {/* Color Inputs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label htmlFor="foregroundColor" className="block text-sm font-medium text-gray-700">
+        <div>
+          <label htmlFor="foregroundColor" className="heading-2 block mb-2">
             {ar.foregroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -83,12 +81,12 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <span className="text-sm text-gray-600">{formData.foregroundColor.toUpperCase()}</span>
+            <span className="text-body">{formData.foregroundColor.toUpperCase()}</span>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <label htmlFor="backgroundColor" className="block text-sm font-medium text-gray-700">
+        <div>
+          <label htmlFor="backgroundColor" className="heading-2 block mb-2">
             {ar.backgroundColor}
           </label>
           <div className="flex items-center space-x-4">
@@ -101,22 +99,21 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
                 value={formData.backgroundColor}
                 onChange={handleInputChange}
               />
-              <div className="absolute inset-0 rounded-lg border border-gray-200 pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-lg border border-gray-300 pointer-events-none"></div>
             </div>
-            <span className="text-sm text-gray-600">{formData.backgroundColor.toUpperCase()}</span>
+            <span className="text-body">{formData.backgroundColor.toUpperCase()}</span>
           </div>
         </div>
       </div>
 
-      {/* Corner Style */}
-      <div className="space-y-2">
-        <label htmlFor="cornerStyle" className="block text-sm font-medium text-gray-700">
+      <div>
+        <label htmlFor="cornerStyle" className="heading-2 block mb-2">
           {ar.cornerStyle}
         </label>
         <select
           id="cornerStyle"
           name="cornerStyle"
-          className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+          className="input"
           value={formData.cornerStyle}
           onChange={handleInputChange}
         >
@@ -125,21 +122,20 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
         </select>
       </div>
 
-      {/* Logo Upload */}
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">
+      <div>
+        <label className="heading-2 block mb-2">
           {ar.logo.title}
         </label>
         <div
           {...getRootProps()}
-          className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-gray-400 transition-all bg-gray-50"
+          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-gray-400 transition-colors bg-gray-50"
         >
           <input {...getInputProps()} />
           {logo ? (
-            <div className="flex items-center justify-center space-x-2">
-              <span className="text-sm text-gray-600">{logo.name}</span>
+            <div className="text-body">
+              {logo.name}
               <button
-                className="text-red-500 hover:text-red-700 font-medium text-sm"
+                className="mr-3 text-red-500 hover:text-red-700 font-medium"
                 onClick={(e) => {
                   e.stopPropagation();
                   setLogo(null);
@@ -151,10 +147,10 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
             </div>
           ) : (
             <div>
-              <p className="text-sm text-gray-600 mb-1">
+              <p className="text-body mb-2">
                 {ar.logo.dropzone}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-sm text-gray-500">
                 {ar.logo.supportedFormats}
               </p>
             </div>

@@ -110,12 +110,12 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
     <div className="relative">
       <div
         ref={containerRef}
-        className="flex justify-center items-center min-h-[350px] bg-white rounded-xl p-8 shadow-lg transition-all hover:shadow-xl"
+        className="flex justify-center items-center min-h-[350px] bg-gray-50 rounded-xl p-8"
       />
-      {isPreview && options.text === '' && (
+      {isPreview && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/5 backdrop-blur-[1px] rounded-xl">
           <span className="text-black/70 text-xl font-bold transform -rotate-45 bg-white/80 px-6 py-2 rounded-full shadow-sm">
-            DEMO QR
+            PREVIEW
           </span>
         </div>
       )}
