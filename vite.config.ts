@@ -7,10 +7,13 @@ export default defineConfig({
   base: '/',
   build: {
     cssCodeSplit: false,
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
-        assetFileNames: 'assets/[name].[hash].[ext]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'index.css') return 'assets/index.[hash].css';
+          return 'assets/[name].[hash][extname]';
+        },
         chunkFileNames: 'assets/[name].[hash].js',
         entryFileNames: 'assets/[name].[hash].js',
       },

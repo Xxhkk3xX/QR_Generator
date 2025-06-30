@@ -42,7 +42,7 @@
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-sm;
+    @apply bg-white rounded-xl shadow-sm p-6;
   }
 
   .input {
@@ -120,4 +120,18 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Custom Styles */
+.card:hover {
+  @apply shadow-md transition-shadow;
+}
+
+.input:focus {
+  @apply outline-none border-transparent ring-2 ring-black;
+}
+
+/* QR Code Container */
+.qr-container {
+  @apply flex justify-center items-center min-h-[300px] bg-gray-50 rounded-xl p-4;
 }
