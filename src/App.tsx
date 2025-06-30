@@ -22,21 +22,21 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-6 sm:py-12 px-3 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-4xl mx-auto">
-        <header className="text-center mb-16">
-          <h1 className="heading-1 mb-4">
+        <header className="text-center mb-8 sm:mb-16">
+          <h1 className="heading-1 mb-3 sm:mb-4 text-3xl sm:text-4xl">
             {ar.title}
           </h1>
-          <p className="text-body text-lg max-w-2xl mx-auto">
+          <p className="text-body text-base sm:text-lg max-w-2xl mx-auto">
             {ar.subtitle}
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
           {/* QR Preview Section */}
-          <div className="lg:sticky lg:top-8 space-y-6">
-            <div className="card">
+          <div className="lg:sticky lg:top-8 space-y-4 sm:space-y-6">
+            <div className="card p-4 sm:p-6">
               <QRPreview options={qrOptions} />
             </div>
             <BuyButton
@@ -46,12 +46,12 @@ function App() {
           </div>
 
           {/* Form Section */}
-          <div className="card">
+          <div className="card p-4 sm:p-6">
             <QRForm onUpdate={setQROptions} />
           </div>
         </div>
 
-        <footer className="mt-16 text-center text-body">
+        <footer className="mt-8 sm:mt-16 text-center text-body text-sm sm:text-base">
           <p>© 2024 Kuwait QR Code Generator</p>
         </footer>
       </div>
