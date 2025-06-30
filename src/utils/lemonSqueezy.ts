@@ -35,30 +35,34 @@ export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
 
 export const createCheckout = async (): Promise<string> => {
   try {
-    const storeId = LEMON_SQUEEZY_CONFIG.STORE_ID;
-    const variantId = LEMON_SQUEEZY_CONFIG.VARIANT_ID;
+    const storeId = parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID);
+    const variantId = parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID);
+
+    if (isNaN(storeId) || isNaN(variantId)) {
+      throw new Error('Invalid store ID or variant ID');
+    }
 
     const payload = {
       data: {
         type: 'checkouts',
         attributes: {
-          store_id: parseInt(storeId),
-          variant_id: parseInt(variantId),
+          store_id: storeId,
+          variant_id: variantId,
           product_options: {
-            enabled_variants: [parseInt(variantId)]
+            enabled_variants: [variantId]
           }
         },
         relationships: {
           store: {
             data: {
               type: "stores",
-              id: storeId
+              id: storeId.toString()
             }
           },
           variant: {
             data: {
               type: "variants",
-              id: variantId
+              id: variantId.toString()
             }
           }
         }
