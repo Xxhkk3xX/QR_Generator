@@ -34,7 +34,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       'image/*': ['.png', '.jpg', '.jpeg']
     },
     maxFiles: 1,
-    maxSize: 1024 * 1024, // 1MB size limit
     onDrop: async (acceptedFiles) => {
       if (acceptedFiles[0]) {
         try {
@@ -44,9 +43,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
           const img = new Image();
           
           img.onload = () => {
-            // Make the image square using the larger dimension
-            const size = Math.max(img.width, img.height);
-            canvas.width = 200; // Fixed size for all logos
+            canvas.width = 200;
             canvas.height = 200;
             
             if (ctx) {
@@ -65,7 +62,6 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
               // Convert to blob
               canvas.toBlob((blob) => {
                 if (blob) {
-                  // Create a new file from the blob
                   const resizedFile = new File([blob], acceptedFiles[0].name, {
                     type: 'image/png',
                     lastModified: Date.now(),
@@ -79,13 +75,7 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
           img.src = URL.createObjectURL(acceptedFiles[0]);
         } catch (error) {
           console.error('Error resizing image:', error);
-          alert(ar.logo.generalError || 'Error processing image');
         }
-      }
-    },
-    onDropRejected: (rejectedFiles) => {
-      if (rejectedFiles[0]?.errors[0]?.code === 'file-too-large') {
-        alert(ar.logo.fileSizeError || 'File is too large. Maximum size is 1MB');
       }
     }
   });
