@@ -1,0 +1,73 @@
+import { useState } from 'react'
+import { QRForm } from './components/QRForm'
+import { QRPreview } from './components/QRPreview'
+import { BuyButton } from './components/BuyButton'
+import './styles/index.css'
+
+interface QROptions {
+  text: string;
+  foregroundColor: string;
+  backgroundColor: string;
+  cornerStyle: 'square' | 'dot';
+  logo?: File;
+}
+
+function App() {
+  const [qrOptions, setQROptions] = useState<QROptions>({
+    text: '',
+    foregroundColor: '#000000',
+    backgroundColor: '#ffffff',
+    cornerStyle: 'square',
+  })
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <header className="text-center mb-16">
+          <h1 className="heading-1 mb-4">
+            QR Code Generator
+          </h1>
+          <p className="text-body text-lg max-w-2xl mx-auto">
+            Create beautiful, customized QR codes with your brand colors and logo in seconds
+          </p>
+          <BuyButton
+            productId="YOUR_PRODUCT_ID"
+            className="btn btn-primary mt-8 inline-block"
+          />
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="card">
+            <QRForm onUpdate={setQROptions} />
+          </div>
+
+          <div className="lg:sticky lg:top-8 space-y-6">
+            <div className="card">
+              <QRPreview options={qrOptions} />
+            </div>
+            <BuyButton
+              productId="YOUR_PRODUCT_ID"
+              className="btn btn-primary w-full"
+            />
+          </div>
+        </div>
+
+        <footer className="mt-16 text-center text-body">
+          <p>
+            Secure payments powered by{' '}
+            <a
+              href="https://www.lemonsqueezy.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black font-medium hover:underline"
+            >
+              Lemon Squeezy
+            </a>
+          </p>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+export default App
