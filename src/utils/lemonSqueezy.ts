@@ -44,6 +44,20 @@ export const createCheckout = async (): Promise<string> => {
           product_options: {
             enabled_variants: [parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID)]
           }
+        },
+        relationships: {
+          store: {
+            data: {
+              type: "stores",
+              id: LEMON_SQUEEZY_CONFIG.STORE_ID
+            }
+          },
+          variant: {
+            data: {
+              type: "variants",
+              id: LEMON_SQUEEZY_CONFIG.VARIANT_ID
+            }
+          }
         }
       }
     };
