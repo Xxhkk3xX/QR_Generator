@@ -9,6 +9,10 @@ interface LemonSqueezyProduct {
 
 export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
   try {
+    if (!LEMON_SQUEEZY_CONFIG.API_KEY) {
+      throw new Error('API key is not configured');
+    }
+
     const response = await fetch(`${LEMON_SQUEEZY_CONFIG.BASE_URL}/products`, {
       headers: {
         ...LEMON_SQUEEZY_CONFIG.HEADERS,
@@ -35,6 +39,14 @@ export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
 
 export const createCheckout = async (): Promise<string> => {
   try {
+    // Validate configuration
+    if (!LEMON_SQUEEZY_CONFIG.API_KEY) {
+      throw new Error('API key is not configured');
+    }
+    if (!LEMON_SQUEEZY_CONFIG.STORE_ID || !LEMON_SQUEEZY_CONFIG.VARIANT_ID) {
+      throw new Error('Store ID or Variant ID is not configured');
+    }
+
     const storeId = parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID);
     const variantId = parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID);
 
@@ -101,9 +113,11 @@ export const createCheckout = async (): Promise<string> => {
   }
 };
 
-// Verify environment variables are loaded
-console.log('Lemon Squeezy Config Loaded:', {
+// Log configuration status
+console.log('Lemon Squeezy Config Status:', {
+  hasApiKey: !!LEMON_SQUEEZY_CONFIG.API_KEY,
+  hasStoreId: !!LEMON_SQUEEZY_CONFIG.STORE_ID,
+  hasVariantId: !!LEMON_SQUEEZY_CONFIG.VARIANT_ID,
   storeId: LEMON_SQUEEZY_CONFIG.STORE_ID,
-  variantId: LEMON_SQUEEZY_CONFIG.VARIANT_ID,
-  hasApiKey: !!LEMON_SQUEEZY_CONFIG.API_KEY
+  variantId: LEMON_SQUEEZY_CONFIG.VARIANT_ID
 }); 
