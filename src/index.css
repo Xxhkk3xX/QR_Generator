@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +17,45 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+/* Ensure styles persist after refresh */
+.card {
+  @apply bg-white rounded-xl shadow-sm;
+}
+
+.input {
+  @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all;
+}
+
+.btn {
+  @apply px-6 py-3 rounded-lg font-semibold transition-all shadow-sm hover:shadow-md;
+}
+
+.btn-primary {
+  @apply bg-black text-white hover:bg-gray-900;
+}
+
+.heading-1 {
+  @apply text-4xl font-bold text-gray-900 tracking-tight;
+}
+
+.heading-2 {
+  @apply text-xl font-semibold text-gray-800;
+}
+
+.text-body {
+  @apply text-gray-600 leading-relaxed;
 }
 
 a {

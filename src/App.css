@@ -1,3 +1,49 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --primary-color: #000000;
+  --primary-hover: #1a1a1a;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Noto Sans Arabic', sans-serif;
+  }
+}
+
+@layer components {
+  .heading-1 {
+    @apply text-4xl font-bold text-gray-900 tracking-tight;
+  }
+
+  .heading-2 {
+    @apply text-xl font-semibold text-gray-800;
+  }
+
+  .text-body {
+    @apply text-gray-600 leading-relaxed;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-black focus:border-transparent transition-all;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all shadow-sm hover:shadow-md;
+  }
+
+  .btn-primary {
+    @apply bg-black text-white hover:bg-gray-900;
+  }
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -31,10 +77,6 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
 }
 
 .read-the-docs {
