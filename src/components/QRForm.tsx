@@ -34,11 +34,27 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
       'image/*': ['.png', '.jpg', '.jpeg']
     },
     maxFiles: 1,
+    maxSize: 1024 * 1024, // 1MB size limit
     onDrop: (acceptedFiles) => {
       if (acceptedFiles[0]) {
-        setLogo(acceptedFiles[0]);
+        // Check image dimensions
+        const img = new Image();
+        img.onload = () => {
+          // Ensure the image is square and at least 100x100 pixels
+          if (img.width >= 100 && img.height >= 100) {
+            setLogo(acceptedFiles[0]);
+          } else {
+            alert(ar.logo.sizeError || 'Logo should be at least 100x100 pixels');
+          }
+        };
+        img.src = URL.createObjectURL(acceptedFiles[0]);
       }
     },
+    onDropRejected: (rejectedFiles) => {
+      if (rejectedFiles[0]?.errors[0]?.code === 'file-too-large') {
+        alert(ar.logo.fileSizeError || 'File is too large. Maximum size is 1MB');
+      }
+    }
   });
 
   const handleUpdate = (update: Partial<typeof formData>) => {
@@ -157,6 +173,9 @@ export const QRForm: React.FC<QRFormProps> = ({ onUpdate }) => {
               </p>
               <p className="text-sm text-gray-500">
                 {ar.logo.supportedFormats}
+              </p>
+              <p className="text-sm text-gray-500 mt-1">
+                {ar.logo.requirements || 'Logo should be square, at least 100x100 pixels, and under 1MB'}
               </p>
             </div>
           )}

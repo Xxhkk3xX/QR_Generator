@@ -34,7 +34,7 @@ export const generateQR = ({
     qrOptions: {
       typeNumber: 0,
       mode: 'Byte',
-      errorCorrectionLevel: 'Q',
+      errorCorrectionLevel: 'H',
     },
     dotsOptions: {
       color: foregroundColor,
@@ -54,9 +54,9 @@ export const generateQR = ({
     ...(logo && {
       image: logo.url,
       imageOptions: {
-        hideBackgroundDots: true,
-        imageSize: logo.size || 0.4,
-        margin: 0,
+        hideBackgroundDots: false,
+        imageSize: logo.size || 0.2,
+        margin: 5,
         crossOrigin: 'anonymous',
       },
     }),
