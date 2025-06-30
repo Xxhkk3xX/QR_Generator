@@ -41,11 +41,24 @@ export const createCheckout = async (): Promise<string> => {
         attributes: {
           store_id: parseInt(LEMON_SQUEEZY_CONFIG.STORE_ID),
           variant_id: parseInt(LEMON_SQUEEZY_CONFIG.VARIANT_ID),
+          custom_price: null,
           product_options: {
+            name: "QR Code Generator",
+            description: "Generate customizable QR codes with your brand colors and logo",
+            media: [],
             redirect_url: window.location.origin + "/success",
             receipt_button_text: "تحميل",
             receipt_link_url: window.location.origin + "/download",
-            receipt_thank_you_note: "شكراً لك على الشراء!"
+            receipt_thank_you_note: "شكراً لك على الشراء!",
+            enabled_variants: []
+          },
+          checkout_data: {
+            email: "",
+            name: "",
+            billing_address: {},
+            tax_number: "",
+            discount_code: "",
+            custom_data: {}
           },
           checkout_options: {
             dark: false,
@@ -55,7 +68,8 @@ export const createCheckout = async (): Promise<string> => {
             discount: false,
             testimonials: false,
             custom_button_text: "اشترِ الآن - ٢.٥ د.ك"
-          }
+          },
+          expires_at: null
         }
       }
     };
