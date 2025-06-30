@@ -15,45 +15,6 @@ This repository contains proprietary code and sensitive API keys. It is not lice
 - 🔄 Real-time preview
 - 📥 High-resolution PNG download
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 16.x or later
-- npm 7.x or later
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/qr-generator.git
-   cd qr-generator
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Update the Lemon Squeezy product ID:
-   - Open `src/App.tsx`
-   - Replace `YOUR_PRODUCT_ID` with your actual Lemon Squeezy product ID
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:5173](http://localhost:5173) in your browser
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-The build output will be in the `dist` directory.
-
 ## Tech Stack
 
 - React.js with TypeScript
@@ -65,6 +26,10 @@ The build output will be in the `dist` directory.
 ## Security Notice
 
 This repository contains sensitive API keys and payment integration code. Any unauthorized use, copying, modification, or distribution of this code is strictly prohibited and may result in legal action.
+
+## Access Control
+
+This is a private repository. Access is strictly controlled and limited to authorized personnel only. If you have received access to this repository, you are bound by confidentiality obligations and must not share access or code with unauthorized parties.
 
 ## Copyright
 
