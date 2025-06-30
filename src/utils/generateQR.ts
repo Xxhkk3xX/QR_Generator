@@ -32,32 +32,32 @@ export const generateQR = ({
     data: data,
     margin: margin,
     qrOptions: {
-      typeNumber: 0,
+      typeNumber: logo ? 10 : 0,
       mode: 'Byte',
       errorCorrectionLevel: 'H',
     },
     dotsOptions: {
-      color: foregroundColor,
       type: 'square',
+      color: foregroundColor,
     },
     backgroundOptions: {
       color: backgroundColor,
     },
     cornersSquareOptions: {
-      color: foregroundColor,
       type: 'square',
+      color: foregroundColor,
     },
     cornersDotOptions: {
-      color: cornersDotOptions.color || foregroundColor,
       type: cornersDotOptions.type || 'square',
+      color: cornersDotOptions.color || foregroundColor,
     },
     ...(logo && {
       image: logo.url,
       imageOptions: {
         hideBackgroundDots: false,
-        imageSize: logo.size || 0.2,
-        margin: 5,
+        imageSize: 0.15,
         crossOrigin: 'anonymous',
+        margin: 10,
       },
     }),
   });
