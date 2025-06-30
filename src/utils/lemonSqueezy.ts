@@ -33,7 +33,7 @@ export const fetchProducts = async (): Promise<LemonSqueezyProduct[]> => {
   }
 };
 
-export const createCheckout = async (productId: string): Promise<string> => {
+export const createCheckout = async (): Promise<string> => {
   try {
     const response = await fetch(`${LEMON_SQUEEZY_CONFIG.BASE_URL}/checkouts`, {
       method: 'POST',
@@ -45,10 +45,21 @@ export const createCheckout = async (productId: string): Promise<string> => {
         data: {
           type: 'checkouts',
           attributes: {
-            product_id: productId,
+            product_id: LEMON_SQUEEZY_CONFIG.PRODUCT_ID,
             checkout_data: {
               custom: {
                 user_id: 'anonymous'
+              },
+              checkout_options: {
+                embed: true,
+                media: false,
+                button_color: '#000000',
+                dark: false,
+                paymentMethods: ['card', 'apple_pay', 'google_pay'],
+                displayMode: 'inline',
+                collectBillingAddress: false,
+                collectShippingAddress: false,
+                enabledPaymentMethods: ['card', 'apple_pay', 'google_pay']
               }
             }
           }
