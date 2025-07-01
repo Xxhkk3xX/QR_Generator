@@ -66,9 +66,9 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
           ...(logoUrl && {
             image: logoUrl,
             imageOptions: {
-              hideBackgroundDots: true,
-              imageSize: 0.25,
-              margin: 10,
+              hideBackgroundDots: false,
+              imageSize: 0.35,
+              margin: 0,
               crossOrigin: 'anonymous'
             }
           })
