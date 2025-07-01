@@ -45,54 +45,8 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
         if (options.logo instanceof File) {
           console.log('Creating new logo URL for file:', options.logo.name);
           try {
-            const reader = new FileReader();
-            const dataUrl = await new Promise<string>((resolve, reject) => {
-              reader.onload = () => {
-                const result = reader.result;
-                if (typeof result === 'string') {
-                  resolve(result);
-                } else {
-                  reject(new Error('Failed to read file as data URL'));
-                }
-              };
-              reader.onerror = () => reject(reader.error);
-              reader.readAsDataURL(options.logo as File);
-            });
-
-            // Create an image element to load the data URL
-            const img = new Image();
-            await new Promise((resolve, reject) => {
-              img.onload = resolve;
-              img.onerror = reject;
-              img.src = dataUrl;
-            });
-
-            // Create a canvas to resize the image
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const maxSize = 100; // Maximum size for the logo
-            let width = img.width;
-            let height = img.height;
-
-            // Calculate new dimensions while maintaining aspect ratio
-            if (width > height) {
-              if (width > maxSize) {
-                height = height * (maxSize / width);
-                width = maxSize;
-              }
-            } else {
-              if (height > maxSize) {
-                width = width * (maxSize / height);
-                height = maxSize;
-              }
-            }
-
-            canvas.width = width;
-            canvas.height = height;
-            ctx?.drawImage(img, 0, 0, width, height);
-
-            // Get the resized image as a data URL
-            logoUrl = canvas.toDataURL('image/png');
+            // Create a simple URL for the logo
+            logoUrl = URL.createObjectURL(options.logo);
             logoUrlRef.current = logoUrl;
           } catch (error) {
             console.error('Error processing logo:', error);
@@ -109,16 +63,10 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
           },
           size: 300,
           margin: 10,
-          qrOptions: {
-            errorCorrectionLevel: 'H'
-          },
           ...(logoUrl && {
-            image: logoUrl,
-            imageOptions: {
-              hideBackgroundDots: true,
-              imageSize: 0.3,
-              margin: 10,
-              crossOrigin: 'anonymous'
+            logo: {
+              url: logoUrl,
+              size: 0.25
             }
           })
         };
