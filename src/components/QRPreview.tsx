@@ -42,10 +42,19 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
 
         // Create new logo URL if logo exists
         let logoUrl = '';
-        if (options.logo) {
+        if (options.logo instanceof File) {
           console.log('Creating new logo URL for file:', options.logo.name);
-          logoUrl = URL.createObjectURL(options.logo);
-          logoUrlRef.current = logoUrl;
+          try {
+            const reader = new FileReader();
+            logoUrl = await new Promise((resolve, reject) => {
+              reader.onload = () => resolve(reader.result as string);
+              reader.onerror = reject;
+              reader.readAsDataURL(options.logo as File);
+            });
+            logoUrlRef.current = logoUrl;
+          } catch (error) {
+            console.error('Error reading logo file:', error);
+          }
         }
 
         const qrOptions: QROptions = {
