@@ -94,10 +94,14 @@ export const QRPreview: React.FC<QRPreviewProps> = ({ options, isPreview = true 
   }, [options]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div
         ref={containerRef}
-        className="flex justify-center items-center min-h-[300px] sm:min-h-[350px] bg-gray-50 rounded-xl p-4 sm:p-8"
+        className="flex justify-center items-center min-h-[300px] sm:min-h-[350px] bg-gray-50 rounded-xl p-4 sm:p-8 overflow-hidden"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          maxWidth: '100%'
+        }}
       />
       {isPreview && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[2px] rounded-xl">
