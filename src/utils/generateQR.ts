@@ -8,9 +8,26 @@ export interface QROptions {
     type?: 'square' | 'dot';
     color?: string;
   };
-  logo?: {
-    url: string;
-    size?: number;
+  dotsOptions?: {
+    type: 'square';
+    color: string;
+  };
+  backgroundOptions?: {
+    color: string;
+  };
+  cornersSquareOptions?: {
+    type: 'square' | 'dot';
+    color: string;
+  };
+  image?: string;
+  imageOptions?: {
+    hideBackgroundDots?: boolean;
+    imageSize?: number;
+    margin?: number;
+    crossOrigin?: 'anonymous';
+  };
+  qrOptions?: {
+    errorCorrectionLevel: 'H';
   };
   size?: number;
   margin?: number;
@@ -21,7 +38,12 @@ export const generateQR = ({
   foregroundColor = '#000000',
   backgroundColor = '#ffffff',
   cornersDotOptions = { type: 'square', color: '#000000' },
-  logo,
+  dotsOptions,
+  backgroundOptions,
+  cornersSquareOptions,
+  image,
+  imageOptions,
+  qrOptions = { errorCorrectionLevel: 'H' },
   size = 300,
   margin = 10,
 }: QROptions) => {
@@ -31,14 +53,14 @@ export const generateQR = ({
     type: 'canvas',
     data: data,
     margin,
-    dotsOptions: {
+    dotsOptions: dotsOptions || {
       type: 'square',
       color: foregroundColor,
     },
-    backgroundOptions: {
+    backgroundOptions: backgroundOptions || {
       color: backgroundColor,
     },
-    cornersSquareOptions: {
+    cornersSquareOptions: cornersSquareOptions || {
       type: 'square',
       color: foregroundColor,
     },
@@ -46,15 +68,15 @@ export const generateQR = ({
       type: cornersDotOptions.type || 'square',
       color: cornersDotOptions.color || foregroundColor,
     },
-    qrOptions: {
-      errorCorrectionLevel: 'H',
-    },
-    ...(logo && {
-      image: logo.url,
+    qrOptions,
+    ...(image && {
+      image,
       imageOptions: {
-        imageSize: 0.25,
-        margin: 0,
+        hideBackgroundDots: true,
+        imageSize: 0.3,
+        margin: 10,
         crossOrigin: 'anonymous',
+        ...imageOptions,
       },
     }),
   });
